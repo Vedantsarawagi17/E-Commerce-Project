@@ -14,7 +14,7 @@ import { SearchBar } from './components/SearchBar'
 import { ToastContainer } from 'react-toastify';
 import { Verify } from './pages/Verify'
 
-export const App = () => {
+export const App = () => { 
   return (
     <div className='px-4 sm:ps-[5vw] md:px-[7vw] lg:px-[9vw]'>
       <ToastContainer />

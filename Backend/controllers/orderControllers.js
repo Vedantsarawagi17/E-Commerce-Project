@@ -7,7 +7,7 @@ import { userModel } from "../models/userModel.js";
 import { Stripe } from "stripe";
 import { connectRazorpay, verifyPayment } from "../config/razorpay.js"; 
   
-// Global Variables
+// Global Variables 
 const currency = "GBP";
 const razorpayCurrency = "INR";
 const deliveryCharge = 10;

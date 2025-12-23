@@ -11,7 +11,7 @@ export const Navbar = () => {
         navigate('/login')
         localStorage.removeItem('token')
         localStorage.removeItem('guestCart')
-        setToken('')
+        setToken('') 
         setCartItems({})
     }
   return (

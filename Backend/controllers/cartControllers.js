@@ -8,7 +8,7 @@ export const mergeCart = async (req, res) => {
         const { userId, localCart } = req.body;
         const userData = await userModel.findById(userId);
         let dbCart = userData.cartData || {};
-
+ 
         // Merge logic: Combine localCart into dbCart
         for (const itemId in localCart) {
             if (!dbCart[itemId]) {

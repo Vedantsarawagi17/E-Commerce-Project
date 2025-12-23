@@ -8,7 +8,7 @@ import {
 import { upload } from "../middleware/multer.js";
 import { adminAuth } from "../middleware/adminAuth.js";
 
-export const productRouter = express.Router();
+export const productRouter = express.Router(); 
 
 productRouter.post(
   "/add",

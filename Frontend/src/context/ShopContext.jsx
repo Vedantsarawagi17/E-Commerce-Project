@@ -9,7 +9,7 @@ import axios from 'axios'
 
 export const ShopContext = createContext();
 
-export const ShopContextProvider = (props)=>{
+export const ShopContextProvider = (props)=>{ 
 
     // Hardcoded Values 
 

@@ -7,7 +7,7 @@ import {
     verifyRazorpay,
     allOrders, 
     userOrders, 
-    updateStatus
+    updateStatus 
 } from '../controllers/orderControllers.js'
 
 import { adminAuth } from '../middleware/adminAuth.js'

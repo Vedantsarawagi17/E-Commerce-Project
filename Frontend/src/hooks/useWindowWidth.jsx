@@ -11,7 +11,7 @@ export const useWindowWidth = () => {
     // resize : -> It is built-in event type in browser 
     window.addEventListener('resize', handleResize);
     return () => {
-        window.removeEventListener('resize', handleResize);
+        window.removeEventListener('resize', handleResize); 
     };
   }, []);
   return width;

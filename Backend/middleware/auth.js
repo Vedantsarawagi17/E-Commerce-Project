@@ -7,7 +7,7 @@ export const authUser = async (req, res, next) => {
   console.log("Token Received:", token); // <-- ADD THIS
 
   if (!token) {
-    return res.json({
+    return res.json({ 
       success: false,
       message: "Not authorized",
     });

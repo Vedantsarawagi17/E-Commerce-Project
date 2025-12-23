@@ -11,7 +11,7 @@ const createToken = (id) => {
   return jwt.sign({ id }, process.env.JWT_SECRET);
 };
 
-// /api/user/login
+// /api/user/login 
 // Route for user login
 export const loginUser = async (req, res) => {
   try {

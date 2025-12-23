@@ -33,7 +33,7 @@ export default [
         'warn',
         { allowConstantExport: true },
       ],
-      'no-unused-vars': 'warn'
+      'no-unused-vars': 'warn', // Changes error to warning so it doesn't block you
     },
   },
 ]

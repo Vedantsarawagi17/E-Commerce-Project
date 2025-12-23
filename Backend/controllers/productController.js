@@ -10,7 +10,7 @@ export const addProduct = async (req, res) => {
       description,
       price,
       category,
-      subCategory,
+      subCategory, 
       sizes,
       bestseller,
     } = req.body;

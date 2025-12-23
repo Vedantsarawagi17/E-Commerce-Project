@@ -11,7 +11,7 @@ export const SearchBar = () => {
        if (location.pathname.includes('collection')){
         setVisible(true)
        }else{
-        setVisible(false) 
+        setVisible(false)  
        }
     },[location]) 
   return showSearch && visible ? (

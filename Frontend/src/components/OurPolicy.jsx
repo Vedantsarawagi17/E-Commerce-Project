@@ -8,7 +8,7 @@ export const OurPolicy = () => {
         <p className='font-semibold'>Easy Exchange Policy</p>
         <p className='text-gray-400'>We offer hassle free exchange policy</p>
       </div>
-      <div>
+      <div> 
         <img className=' w-12 m-auto mb-5 ' src={assets.quality_icon} alt="quality_icon"/>
         <p className='font-semibold'>7 Days Return Policy</p>
         <p className='text-gray-400'>We provide 7 Days free return policy</p>

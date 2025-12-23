@@ -13,7 +13,7 @@ export const LatestCollection = () => {
   let limit = 8;
   if (windowWidth >= 1024) { 
       limit = 15;
-  } else if (windowWidth >= 768) { 
+  } else if (windowWidth >= 768) {  
       limit = 12;
   } else if (windowWidth >= 640) {
       limit = 9;

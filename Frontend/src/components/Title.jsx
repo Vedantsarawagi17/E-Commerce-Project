@@ -8,4 +8,4 @@ export const Title = ({text1,text2 }) => {
 }
 // sm:h-0.5 => 2 px
 
- 
+  

@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react'
 import { backendUrl, currency } from '../App'
 import { toast } from 'react-toastify'
 import axios from 'axios'
-
+ 
 // POST: Method :- It takes 3 arguments (URL, Body, Headers) .
 // GET: Method :- It takes 2 arguments (URL, Headers).
 // Headers :- Information about the request eg:- token, Content-Type

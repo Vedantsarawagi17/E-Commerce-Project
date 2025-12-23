@@ -4,7 +4,7 @@ import { Title } from './Title.jsx';
 import { ProductItem } from './ProductItem.jsx';
 import { useWindowWidth } from '../hooks/useWindowWidth.jsx';
 
-export const BestSeller = () => {
+export const BestSeller = () => { 
     const {products} = useContext(ShopContext);
     const [bestSeller,setBestSeller] = useState([]);
     const windowWidth = useWindowWidth();
