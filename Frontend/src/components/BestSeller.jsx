@@ -1,18 +1,18 @@
 import { useContext, useState,useEffect } from 'react'
-import { ShopContext } from '../context/ShopContext.jsx'
-import { Title } from './Title.jsx'; 
-import { ProductItem } from './ProductItem.jsx';
-import { useWindowWidth } from '../hooks/useWindowWidth.jsx';
+import { ShopContext } from '../context/ShopContext'
+import { Title } from './Title';
+import { ProductItem } from './ProductItem';
+import { useWindowWidth } from '../../src/hooks/useWindowWidth.jsx';
 
-export const BestSeller = () => { 
+export const BestSeller = () => {
     const {products} = useContext(ShopContext);
     const [bestSeller,setBestSeller] = useState([]);
     const windowWidth = useWindowWidth();
 
     let limit = 2;
-    if (windowWidth >= 1024) { 
+    if (windowWidth >= 1024) {
       limit = 5;
-    } else if (windowWidth >= 768) { 
+    } else if (windowWidth >= 768) {
       limit = 4;
     } else if (windowWidth >= 640) {
       limit = 3;
