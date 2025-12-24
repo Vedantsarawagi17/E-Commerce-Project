@@ -31,14 +31,6 @@ app.get("/", (req, res) => {
     res.send("API Working");
 });
 
-app.get("/test-env", (req, res) => {
-  res.json({
-    cloud_name: process.env.CLOUDINARY_NAME ? "Found" : "Missing",
-    api_key: process.env.CLOUDINARY_API_KEY ? "Found" : "Missing",
-    secret: process.env.CLOUDINARY_SECRET_KEY ? "Found" : "Missing",
-  });
-});
-
 app.listen(port, () => {
     console.log(`Server started on http://localhost:${port}`);
 });
