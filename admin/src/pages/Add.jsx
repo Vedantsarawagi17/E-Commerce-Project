@@ -1,8 +1,9 @@
 import { useState } from 'react'
 import { assets } from '../assets/assets'
 import axios from 'axios' 
-import {backendUrl} from '../App.jsx'
+import { backendUrl } from '../App.jsx'
 import { toast } from 'react-toastify'
+import { PopUp } from '../components/PopUp.jsx'
 
 export const Add = ({token}) => {
   const [image1,setImage1 ] = useState(false); 
@@ -17,11 +18,27 @@ export const Add = ({token}) => {
   const [subCategory,setSubCategory] = useState('Topwear');
   const [bestseller,setBestseller] = useState(false);
   const [sizes,setSizes] = useState([]);
+  const [showPopup, setShowPopup] = useState(false);
 
   const onSubmitHandler = async(e) => {
     // Prevents the browser from refreshing the page when the button is clicked.
     e.preventDefault();
+    if (sizes.length === 0) {
+        return toast.error("Please select at least one product size!");
+    }
+    if (!image1 && !image2 && !image3 && !image4) {
+        return toast.error("Please upload at least one image!");
+    }
+    setShowPopup(true);
+  }
+   
+const finalSubmit = async (enteredPassword) => {
+    const ADMIN_PASSWORD = import.meta.env.VITE_ADMIN_PASSWORD;
+    if (enteredPassword !== ADMIN_PASSWORD) {
+        return toast.error("Incorrect Password!");
+    }
 
+    setShowPopup(false);
     try {
       const formData = new FormData()
 
@@ -50,7 +67,6 @@ export const Add = ({token}) => {
       const response = await axios.post(backendUrl + "/api/product/add",formData,{headers:{token}})
       
       if(response.data.success){
-        toast.success(response.data.message)
         setImage1(false)
         setImage2(false)
         setImage3(false)
@@ -60,6 +76,7 @@ export const Add = ({token}) => {
         setPrice('')
         setBestseller(false);
         setSizes([]);
+        toast.success(response.data.message)
       }else{
         toast.error(response.data.message)
       }
@@ -71,17 +88,19 @@ export const Add = ({token}) => {
   }
 
   return (
-    <form onSubmit={onSubmitHandler} className='flex flex-col w-full items-start gap-3 '>
+  <div>
+    <form onSubmit = { onSubmitHandler } className='flex flex-col w-full items-start gap-3 '>
       <div>
         <p className='mb-2'>Upload Image</p>
         <div className='flex gap-2 '>
 
-           <label htmlFor="image1">
-
             {/* 
             If an image is selected, URL.createObjectURL generates a temporary URL to show a preview of the actual photo you just picked .
             An <img> tag must have a src URL to show anything. You can't just put the raw File Object into the src .
-            URL.createObjectURL() is a built-in browser function that acts as a "translator" . */}
+            URL.createObjectURL() is a built-in browser function that acts as a "translator" . 
+            */}
+
+           <label htmlFor="image1">
             <img className='w-20' src={!image1 ? assets.upload_area : URL.createObjectURL(image1)} alt="image-1" />
             <input onChange={(e)=>setImage1(e.target.files[0])} type="file" id='image1' hidden />
            </label>
@@ -136,7 +155,7 @@ export const Add = ({token}) => {
 
         <div>
           <p className='mb-2 '>Product Price</p>
-          <input onChange={(e) => setPrice(e.target.value)} value={price} className='w-full px-3 py-2 sm:w-[120px ]' type="Number" placeholder='25' />
+          <input onChange={(e) => setPrice(e.target.value)} value={price} className='w-full px-3 py-2 sm:w-[120px ]' type="Number" placeholder='25' required/>
         </div>
 
       </div>
@@ -180,5 +199,9 @@ export const Add = ({token}) => {
 
       <button type='submit' className='w-28 py-3 mt-4 bg-black text-white'>ADD</button>
     </form>
+      { showPopup && <PopUp 
+      onConfirm = { finalSubmit } 
+      onClose={() => setShowPopup(false)} />}
+    </div>
   )
 }

@@ -2,7 +2,8 @@ import { useEffect, useState } from 'react'
 import { backendUrl, currency } from '../App'
 import { toast } from 'react-toastify'
 import axios from 'axios'
- 
+import { assets } from '../assets/assets'
+import { PopUp } from '../components/PopUp'
 // POST: Method :- It takes 3 arguments (URL, Body, Headers) .
 // GET: Method :- It takes 2 arguments (URL, Headers).
 // Headers :- Information about the request eg:- token, Content-Type
@@ -15,6 +16,8 @@ import axios from 'axios'
 export const List = ({token}) => {
 
   const [list,setList] = useState([])
+  const [showPopup, setShowPopup] = useState(false)
+  const [selectedId, setSelectedId] = useState(null)
 
   const fetchList = async () => {
     try {
@@ -32,10 +35,23 @@ export const List = ({token}) => {
       toast.error(error.message)
     }
   }
+  const openDeleteModal = (id) => {
+    setSelectedId(id);
+    setShowPopup(true);
+  }
 
-  const removeProduct = async (id)  => {
+  const confirmDelete = async (enteredPassword) => {
+    const ADMIN_PASSWORD = import.meta.env.VITE_ADMIN_PASSWORD;
+
+    if (enteredPassword !== ADMIN_PASSWORD) {
+      return toast.error("Incorrect Password!");
+    }
+
+    // Close popup and proceed with deletion
+    setShowPopup(false);
+
     try {
-      const response = await axios.post(backendUrl + '/api/product/remove',{id},{headers: {token}})
+      const response = await axios.post(backendUrl + '/api/product/remove',{id : selectedId},{headers: {token}})
 
       if (response.data.success) {
         toast.success(response.data.message)
@@ -73,11 +89,17 @@ export const List = ({token}) => {
               <p>{item.name}</p>
               <p>{item.category}</p>
               <p>{currency}{item.price}</p>
-              <p onClick={()=>removeProduct(item._id)} className='text-right md:text-center cursor-pointer text-lg'>X</p>
+              <img className='w-4 h-4 md:m-auto cursor-pointer hover:scale-125 transition-all duration-200' onClick={()=>openDeleteModal(item._id)} src = {assets.cross_icon} alt = "cross_icon" />
             </div>
           ))
         }
       </div>
+      {showPopup && (
+        <PopUp 
+          onConfirm={confirmDelete} 
+          onClose={() => setShowPopup(false)} 
+        />
+      )}
     </>
   )
 }
