@@ -13,22 +13,23 @@ export const Product = () => {
   const [image,setImage] = useState('');
   const [size,setSize] = useState('')
 
+
   useEffect(()=>{
+    setSize('');
     fetchProductData();
+    window.scrollTo(0, 0);
   },[productId,products])
 
-  const fetchProductData = async () => {
-    products.map((item)=>{
-      if (item._id === productId) {
+  const fetchProductData = () => {
+    const item = products.find((item) => item._id === productId);
+    if (item) { 
         setProductData(item)
         setImage(item.image[0])
-        return null;
       }
-    })
-  }
+    };
   
   return productData?(
-    <div className='border-t-2 pt-10 transition-opacity ease-in duration-500 opacity-100'>
+    <div className='border-t pt-10 transition-opacity ease-in duration-500 opacity-100'>
       {/* Product Data */}
       <div className='flex gap-12 sm:gap-12 flex-col sm:flex-row'>
          {/* Product Images  */}
@@ -61,8 +62,14 @@ export const Product = () => {
             <p>Select Size</p>
             <div className='flex gap-2 '>
               {productData.sizes.map((item,index)=>(
-                <button onClick={()=>setSize(item)} className={`py-2 px-4 border border-gray-100 bg-gray-100
-                  ${item === size ?'border-orange-500':'border-y-gray-300'}`} key={index}>{item}</button>
+                <button 
+                onClick={()=>setSize(item === size ? null : item)} 
+                className={`py-2 px-4 border border-gray-100 bg-gray-100
+                  ${item === size ?'border-orange-500':'border-gray-300'}`} 
+                  key={index}
+                  >
+                    {item}
+                  </button>
               ))}
             </div>
           </div>
