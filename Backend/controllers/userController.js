@@ -127,7 +127,7 @@ export const adminLogin = async (req, res) => {
     if(email === process.env.ADMIN_EMAIL &&
       password === process.env.ADMIN_PASSWORD){
       // In Professional app, we generally don't put the password inside the token
-      const token = jwt.sign(email + password, process.env.JWT_SECRET);
+      const token = createToken(email + password);
       return res.json({
         success: true,
         token,

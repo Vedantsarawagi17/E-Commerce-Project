@@ -8,6 +8,10 @@ export const Login = ({setToken}) => {
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
 
+    const [show, setShow] = useState(false); // show: Toggles whether to show or hide the password text (dots vs readable text).
+    const handleClick = () => setShow(!show);
+ 
+
     const onSubmithandler = async (e) =>{
         try {
             e.preventDefault();
@@ -37,10 +41,33 @@ export const Login = ({setToken}) => {
 
             <div className='mb-3 min-w-72'>
                 <p className='text-sm font-medium text-gray-700 mb-2'>Password</p>
-                <input onChange={(e)=>setPassword(e.target.value)} value = {password} className='rounded-md w-full px-3 py-2 border border-gray-300 outline-none' type="password" placeholder='Enter your password' required autoComplete='password'/>
+                    <div className='relative'>
+                        <input 
+                            onChange={(e)=>setPassword(e.target.value)} 
+                            value = {password} 
+                            className='rounded-md w-full px-3 py-2 border border-gray-300 outline-none' 
+                            type={show ? "text" : "password"}
+                            placeholder='Enter your password' 
+                            required 
+                            autoComplete='password'
+                        />
+                        <button
+                            type="button"
+                            className="absolute right-0 top-0 h-full px-3 flex items-center justify-center text-[10px] font-bold uppercase tracking-wide text-gray-400 hover:text-black transition-colors"
+                            onClick={handleClick}
+                        >
+                            {show ? "Hide" : "Show"}
+                        </button>
+                    </div>
             </div>
 
             <button className='mt-2 w-full py-2 px-4 rounded-md text-white bg-black' type='submit'>Login</button>
+            <button className='mt-2 w-full py-2 px-4 rounded-md text-white bg-black' onClick={()=>{
+          setEmail("admin@forever.com");
+          setPassword("admin@123");
+        }}>
+          Guest Admin Credentials
+      </button>
 
         </form>
 
