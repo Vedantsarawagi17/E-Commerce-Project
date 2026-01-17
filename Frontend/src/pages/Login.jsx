@@ -11,6 +11,9 @@ export const Login = () => {
   const [password,setPassword] = useState('')
   const [email,setEmail] = useState('')
 
+  const [show, setShow] = useState(false); // show: Toggles whether to show or hide the password text (dots vs readable text).
+  const handleClick = () => setShow(!show);
+
   const onSubmitHandler = async (event) => {
     event.preventDefault();
     try {
@@ -56,11 +59,28 @@ export const Login = () => {
         <hr className='border-none h-[1.5px] w-8 bg-gray-800' />
       </div>
       {currentState === 'Login' ?
-       '': <input onChange={(e)=>setName(e.target.value )} value={name} className='w-full px-3 py-2 border border-gray-800' type="text" placeholder='Name' required />}
+       '': <input onChange={(e)=>setName(e.target.value )} value={name} className='w-full px-3 py-2 border border-gray-800' type="text" placeholder='Name' required />
+      }
 
       <input onChange={(e)=>setEmail(e.target.value )} value={email} className='w-full px-3 py-2 border border-gray-800' type="email" placeholder='Email' required />
 
-      <input onChange={(e)=>setPassword(e.target.value )} value={password} className='w-full px-3 py-2 border border-gray-800' type="password" placeholder='Password' required />
+      <div className='relative w-full'>
+        <input 
+        className='w-full px-3 py-2 border border-gray-800' 
+        value={password} 
+        onChange={(e)=>setPassword(e.target.value )} 
+        type={show ? "text" : "password"} 
+        placeholder='Password' 
+        required 
+        />
+        <button
+            type="button"
+            className="absolute right-3 top-1/2 -translate-y-1/2 text-xs font-medium text-gray-500 hover:text-black"
+            onClick={handleClick}
+          >
+            {show ? "Hide" : "Show"}
+          </button>
+      </div>
 
       <div className='w-full flex justify-between text-sm mt-[-8px ]'>
          <p className='cursor-pointer'>Forget your password ?</p>
@@ -70,7 +90,25 @@ export const Login = () => {
           <p onClick={()=>setCurrentState('Login')} className='cursor-pointer'>Login Here</p>
          }
       </div>
-      <button className='bg-black text-white font-light px-8 py-2 mt-4 '>{currentState === 'Login' ? 'Sign In' : 'Sign Up'}</button>
+      <button className='w-full bg-black text-white font-light px-8 py-2 mt-4 '>
+        {currentState === 'Login' ? 'Sign In' : 'Sign Up'}
+      </button>
+
+      {currentState === 'Login' ? (
+      <button className='w-full bg-black text-white font-light px-8 py-2 mt-4 ' onClick={()=>{
+          setEmail("guest@example.com");
+          setPassword("1234567890");
+        }}>
+          Get Guest User Credentials
+      </button>
+      ) : 
+      <button className='w-full bg-black text-white font-light px-8 py-2 mt-4 ' onClick={()=>{
+          setName("Guest User")
+          setEmail("guest@example.com");
+          setPassword("1234567890");
+        }}>
+          Get Guest User Credentials
+      </button>}
     </form>
   )
 }
